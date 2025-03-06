@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Task } from '@/types';
+import { Task } from '@/lib/types';
 import TaskItem from './TaskItem';
 
 interface TaskListProps {
@@ -16,10 +16,10 @@ const TaskList = ({ tasks, selectedDate, searchQuery = '', onToggle, onDelete }:
   const formattedSelectedDate = selectedDate.toISOString().split('T')[0];
   
   // Filter tasks based on selected date and search query
-  const filteredTasks = tasks.filter(task => {
+  const filteredTasks = tasks?.filter(task => {
     const matchesDate = task.date === formattedSelectedDate;
     const matchesSearch = searchQuery === '' || 
-      task.text.toLowerCase().includes(searchQuery.toLowerCase());
+      task.name.toLowerCase().includes(searchQuery.toLowerCase());
     
     return matchesDate && matchesSearch;
   });
@@ -42,7 +42,7 @@ const TaskList = ({ tasks, selectedDate, searchQuery = '', onToggle, onDelete }:
       </div>
       
       <div className="flex-1 px-6 overflow-y-auto space-y-3">
-        {filteredTasks.length === 0 ? (
+        {filteredTasks?.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-48 text-muted-foreground">
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mb-4 opacity-20">
               <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
@@ -58,7 +58,7 @@ const TaskList = ({ tasks, selectedDate, searchQuery = '', onToggle, onDelete }:
             </p>
           </div>
         ) : (
-          filteredTasks.map(task => (
+          filteredTasks?.map(task => (
             <TaskItem 
               key={task.id} 
               task={task} 

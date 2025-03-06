@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuth } from "./contexts/AuthContext";
+import { TasksProvider } from "./contexts/TaskContext";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <TasksProvider>
         <BrowserRouter>
           {isLoading ? (
             <div className="h-screen w-full flex items-center justify-center">
@@ -42,6 +44,7 @@ const App = () => {
             </Routes>
           )}
         </BrowserRouter>
+        </TasksProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );

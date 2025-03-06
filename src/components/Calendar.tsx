@@ -42,7 +42,7 @@ const Calendar = ({ selectedDate, onSelectDate }: CalendarProps) => {
       </div>
       
       <div className="p-4 flex-1">
-        <div className="flex items-center justify-between mb-4">
+        {/* <div className="flex items-center justify-between mb-4">
           <Button
             variant="ghost"
             size="icon"
@@ -64,7 +64,7 @@ const Calendar = ({ selectedDate, onSelectDate }: CalendarProps) => {
             <ChevronRight size={22} />
             <span className="sr-only">Next month</span>
           </Button>
-        </div>
+        </div> */}
         
         <CalendarPrimitive
           mode="single"
@@ -72,14 +72,16 @@ const Calendar = ({ selectedDate, onSelectDate }: CalendarProps) => {
           onSelect={(date) => date && onSelectDate(date)}
           month={currentMonth}
           onMonthChange={setCurrentMonth}
-          className="rounded-xl border border-todo-border p-3"
+          className="rounded-xl border border-todo-border p-3 w-full justify-center
+          flex py-4"
           classNames={{
             day_selected: "calendar-day-selected",
             day_today: "calendar-day-today",
             day: "calendar-day hover:bg-todo-highlight",
-            head_cell: "text-muted-foreground font-normal text-xs",
+            head_cell: "text-muted-foreground font-normal text-xs w-full",
             cell: "w-10 h-10 p-0 relative",
             row: "flex w-full",
+            table: "w-full",
           }}
         />
       </div>
