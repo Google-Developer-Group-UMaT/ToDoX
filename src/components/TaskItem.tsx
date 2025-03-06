@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Task } from '@/types';
+import { Task } from '@/lib/types';
 import { Trash2 } from 'lucide-react';
 
 interface TaskItemProps {
@@ -25,7 +25,7 @@ const TaskItem = ({ task, onToggle, onDelete }: TaskItemProps) => {
         htmlFor={`task-${task.id}`}
         className={`flex-1 text-base cursor-pointer ${task.completed ? 'line-through text-muted-foreground' : ''}`}
       >
-        {task.text}
+        {task.name}
       </label>
       <button 
         onClick={() => onDelete(task.id)}
