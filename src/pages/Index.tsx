@@ -36,17 +36,17 @@ const Index = () => {
 
   const handleAddTask = (text: string, date: string) => {
     const newTask = { id: Date.now().toString(), name: text, date,completed:false, active:true };
-    try {
-      // Optimistically update the UI
-    data.push(newTask);
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to add task. Please try again.",
-        duration: 2000,
-        variant:"destructive"
-      });
-    }
+    // try {
+    //   // Optimistically update the UI
+    // data.push(newTask);
+    // } catch (error) {
+    //   toast({
+    //     title: "Error",
+    //     description: "Failed to add task. Please try again.",
+    //     duration: 2000,
+    //     variant:"destructive"
+    //   });
+    // }
     
 
     addTask(newTask, {
@@ -74,7 +74,7 @@ const Index = () => {
     const taskIndex = data.findIndex(task => task.id === id);
     if (taskIndex !== -1) {
       // Optimistically update the UI
-      data[taskIndex].completed = !data[taskIndex].completed;
+      // data[taskIndex].completed = !data[taskIndex].completed;
 
       completeTask(id, {
         onSuccess: () => {
@@ -86,7 +86,7 @@ const Index = () => {
         },
         onError: () => {
           // Revert the optimistic update if the request fails
-          data[taskIndex].completed = !data[taskIndex].completed;
+          // data[taskIndex].completed = !data[taskIndex].completed;
           toast({
             title: "Error",
             description: "Failed to toggle task. Please try again.",

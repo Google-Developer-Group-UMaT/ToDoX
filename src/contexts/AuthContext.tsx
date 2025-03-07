@@ -46,7 +46,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser: FirebaseUser | null) => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: FirebaseUser | null) => {
       if (firebaseUser) {
         setUser({
           id: firebaseUser.uid,
@@ -55,8 +55,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           photoURL: firebaseUser.photoURL || undefined,
           provider: firebaseUser.providerData[0]?.providerId
         });
+        const idToken = await firebaseUser.getIdToken();
+        localStorage.setItem('user', JSON.stringify(firebaseUser.uid));
+        localStorage.setItem('authToken', JSON.stringify(idToken));
       } else {
         setUser(null);
+        localStorage.removeItem('user');
+        localStorage.removeItem('authToken');
       }
       setIsLoading(false);
     });
