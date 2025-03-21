@@ -17,7 +17,7 @@ import firebaseConfig from '@/config/firebase-config';
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+export const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 
@@ -49,6 +49,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: FirebaseUser | null) => {
       if (firebaseUser) {
+        const idToken = await firebaseUser.getIdToken(true); // Forces a refresh
         setUser({
           id: firebaseUser.uid,
           email: firebaseUser.email || '',
@@ -56,9 +57,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           photoURL: firebaseUser.photoURL || undefined,
           provider: firebaseUser.providerData[0]?.providerId
         });
-        const idToken = await firebaseUser.getIdToken();
+  
         localStorage.setItem('user', JSON.stringify(firebaseUser.uid));
-        localStorage.setItem('authToken', JSON.stringify(idToken));
+        localStorage.setItem('authToken', idToken);
       } else {
         setUser(null);
         localStorage.removeItem('user');
@@ -66,10 +67,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
       setIsLoading(false);
     });
-
+  
     return () => unsubscribe();
   }, []);
-
+  
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
