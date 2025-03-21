@@ -56,17 +56,7 @@ const Index = () => {
           description: "Your new task has been added.",
           duration: 2000,
         });
-      },
-      onError: () => {
-        // Revert the optimistic update if the request fails
-        data.pop();
-        toast({
-          title: "Error",
-          description: "Failed to add task. Please try again.",
-          duration: 2000,
-          variant:"destructive"
-        });
-      },
+      }
     });
   };
 

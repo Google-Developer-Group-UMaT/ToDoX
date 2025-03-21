@@ -9,7 +9,8 @@ import {
   GoogleAuthProvider, 
   signInWithPopup, 
   GithubAuthProvider, 
-  User as FirebaseUser 
+  User as FirebaseUser,
+  getIdToken
 } from 'firebase/auth';
 
 import firebaseConfig from '@/config/firebase-config';

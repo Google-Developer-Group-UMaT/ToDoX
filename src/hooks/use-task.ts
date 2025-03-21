@@ -34,8 +34,7 @@ export const useTasks = () => {
   // Add Task (Optimistic Update)
   const addTask = useMutation({
     mutationFn: async (newTask: CreateTask) => {
-      const userId = getUserId();
-      return axios.post<Task>(API_URL, { ...newTask, userId });
+      return axios.post<Task>(API_URL, { ...newTask });
     },
     onMutate: async (newTask) => {
       await queryClient.cancelQueries({ queryKey: ["tasks"] });
